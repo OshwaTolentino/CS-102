@@ -4,7 +4,7 @@ install.packages("rvest")
 library(rvest)
 library(polite)
 
-url <- "https://www.amazon.com/s?k=slippers&ref=nb_sb_noss"
+url <- "https://www.amazon.com/s?i=pets-intl-ship&bbn=16225013011&rh=n%3A2619533011%2Cn%3A16225013011%2Cn%3A2975312011%2Cn%3A2975413011%2Cn%3A2975414011&dc&ds=v1%3ANvW7jrv7OZxgQBUv1Sw7sRNukVCQTNEPTQSigSdFwFo&qid=1707491877&rnid=2619533011&ref=sr_nr_n_4"
 
 session <- bow(url, user_agent = "Educational")
 session
@@ -54,7 +54,7 @@ product_df1 <- data.frame(Brand_Description = brand_descriptions,
 
 write.csv(product_df1, "FirstItem.csv")
 
-product_df1$Category <- "Slippers"
+product_df1$Category <- "Dog Toy ball"
 
 product_df1 <- product_df1[, c("Category", names(product_df1)[-which(names(product_df1) == "Category")])]
 
