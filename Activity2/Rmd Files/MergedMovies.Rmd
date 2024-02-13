@@ -1,0 +1,27 @@
+---
+title: "MergedMovies"
+author: "Aaron Joshua Tolentino"
+date: "2024-02-13"
+output: pdf_document
+---
+
+``` {r}
+movie1 <- read.csv("/cloud/project/Activity2/CSV Files/imdb_reviews.csv")
+movie2 <- read.csv("/cloud/project/Activity2/CSV Files/imdb_reviews2.csv")
+movie3 <- read.csv("/cloud/project/Activity2/CSV Files/imdb_reviews3.csv")
+movie4 <- read.csv("/cloud/project/Activity2/CSV Files/imdb_reviews4.csv")
+movie5 <- read.csv("/cloud/project/Activity2/CSV Files/imdb_reviews5.csv")
+movie6 <- read.csv("/cloud/project/Activity2/CSV Files/imdb_reviews6.csv")
+movie7 <- read.csv("/cloud/project/Activity2/CSV Files/imdb_reviews7.csv")
+movie8 <- read.csv("/cloud/project/Activity2/CSV Files/imdb_reviews8.csv")
+movie9 <- read.csv("/cloud/project/Activity2/CSV Files/imdb_reviews9.csv")
+movie10 <- read.csv("/cloud/project/Activity2/CSV Files/imdb_reviews10.csv")
+```
+
+```{r}
+merged_movies <- rbind(movie1, movie2, movie3, movie4, movie5, movie6, movie7, movie8, movie9, movie10)
+```
+
+```{r}
+write.csv(merged_movies, "MergedMoview.csv", row.names = FALSE)
+```
