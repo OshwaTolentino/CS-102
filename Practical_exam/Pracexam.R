@@ -12,7 +12,12 @@ numeric <- as.integer(warpbreaks$breaks)
 
 
 #3. Error messages in R sometimes report the underlying type of an object rather than the user-level class. Derive from the following code and error message what the underlying type.
+# Code:
+x <- c("1", "2", "3", "4")
+y <- x + 1
 
+#Error message:
+#Error in x + 1 : non-numeric argument to binary operator
 
 
 #B.
