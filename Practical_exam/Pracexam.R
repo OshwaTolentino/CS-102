@@ -18,8 +18,8 @@ numeric <- as.integer(warpbreaks$breaks)
 #B.
 #1. Read the complete file using readfile_file_lines.
 example_file <- "exampleFile.txt"
-file_file_file_lines <- readfile_file_lines(example_file)
-file_file_file_lines
+file_lines <- readLines(example_file)
+file_lines
 
 # 2. Separate the vector of file_lines into a vector containing comments and a vector containing the data.
 comments <- file_lines[grepl("^//", file_lines)]
