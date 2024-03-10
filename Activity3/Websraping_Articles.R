@@ -1,4 +1,3 @@
-
 install.packages("dplyr")
 install.packages("stringr")
 install.packages("httr")
@@ -20,9 +19,12 @@ subject <- NULL
 abstract <- NULL
 meta <- NULL
 
-pages <- seq(from = 0, to = 0, by = 2)
+papers_to_get <- 150  # Define the number of papers to retrieve
+papers_retrieved <- 0  # Initialize counter for papers retrieved
 
-for( i in pages){
+pages <- seq(from = 0, to = 150, by = 50)
+
+for (i in pages) {
   
   tmp_url <- modify_url(url, query = list(start = i))
   tmp_list <- read_html(tmp_url) %>% 
@@ -30,13 +32,13 @@ for( i in pages){
     html_nodes('a[href^="https://arxiv.org/abs"]') %>% 
     html_attr('href')
   
-  for(j in 1:min(length(tmp_list),10)){
+  for (j in 1:min(length(tmp_list), papers_to_get - papers_retrieved)) {
     
     tmp_paragraph <- read_html(tmp_list[j])
     
     # title
     tmp_title <- tmp_paragraph %>% html_nodes('h1.title.mathjax') %>% html_text(T)
-    tmp_title <-  gsub('Title:', '', tmp_title)
+    tmp_title <- gsub('Title:', '', tmp_title)
     title <- c(title, tmp_title)
     
     # author
@@ -59,13 +61,23 @@ for( i in pages){
     tmp_meta <- tmp_paragraph %>% html_nodes('div.submission-history') %>% html_text
     tmp_meta <- lapply(strsplit(gsub('\\s+', ' ',tmp_meta), '[v1]', fixed = T),'[',2) %>% unlist %>% str_trim
     meta <- c(meta, tmp_meta)
-    cat(j, "paper\n")
+    
+    papers_retrieved <- papers_retrieved + 1  # Increment the counter
+    cat(papers_retrieved, "paper\n")
     Sys.sleep(1)
     
+    if (papers_retrieved >= papers_to_get) {
+      break  # Exit the loop if the desired number of papers is retrieved
+    }
   }
-  cat((i/10) + 1,'/1 page\n')
   
+  if (papers_retrieved >= papers_to_get) {
+    break  # Exit the loop if the desired number of papers is retrieved
+  }
+  
+  cat((i/50) + 1,'/3 page\n')
 }
+
 papers <- data.frame(title, author, subject, abstract, meta)
 end <- proc.time()
 end - start # Total Elapsed Time
@@ -73,4 +85,3 @@ end - start # Total Elapsed Time
 # Export the result
 save(papers, file = "Webscraping_Articles.RData")
 write.csv(papers, file = "Webscraping_Articles.csv")
-
