@@ -23,5 +23,5 @@ merged_movies <- rbind(movie1, movie2, movie3, movie4, movie5, movie6, movie7, m
 ```
 
 ```{r}
-write.csv(merged_movies, "MergedMoview.csv", row.names = FALSE)
+write.csv(merged_movies, "MergedMovie.csv", row.names = FALSE)
 ```
