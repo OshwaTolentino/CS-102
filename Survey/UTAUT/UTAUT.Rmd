@@ -1,15 +1,31 @@
+---
+title: "UTAUT"
+author: "Tolentino, Omisol, and Espadon"
+date: "2024-06-04"
+output: pdf_document
+---
+
+``` {r}
 #Install the required packages
 install.packages("tidyr")
 install.packages("dplyr")
+install.packages("xfun")
+```
 
+```{r}
 #Load the require libraries
 
 library(dplyr)
 library(tidyr)
+library(knitr)
+```
 
+```{r}
 # Read the CSV file
 data <- read.csv("/cloud/project/Survey/survey.csv")
+```
 
+```{r}
 #Factoring the elements of every column in Performance Expectancy and change it in numeric value
 #Getting the mean and standard deviation
 PE1 <- data$Do.you.find.using.Digital.payment.useful.
@@ -54,7 +70,8 @@ PE4_sd <- round(PE4_sd, 2)
 
 #Creating a data frame for Performance Expectancy data
 PE_data <- data.frame(
-  Code = c("PE1", "PE2", "PE3", "PE4"),
+  Questions = c("Do you find using Digital payment useful?", "Do you think using Digital payment method will help you manage your money better?", "Do you believe that Digital payment method will make your financial transaction easier?", "Do you think Digital payment method will make it easier for you to keep track of your spending?"),
+  Description = c("Performance Expectance", "Performance Expectance", "Performance Expectance", "Perforamce Expectancy"),
   Mean = c(PE1_mean, PE2_mean, PE3_mean, PE4_mean),
   SD = c(PE1_sd, PE2_sd, PE3_sd, PE4_sd)
 )
@@ -62,9 +79,12 @@ PE_data <- data.frame(
 # Save the data frame of Performance Expectancy as a CSV file
 write.csv(PE_data, "PE.csv", row.names = FALSE)
 
+#Displaying data frame using kable function
+kable(PE_data, caption = "Performance Expectancy")
+```
 
 
-
+```{r}
 #Factoring the elements of every column in Effort Expectancy and change it in numeric value
 #Getting the mean and standard deviation
 EE1 <-data$Do.you.find.Digital.payment.method.easy.to.use.and.understand.
@@ -107,7 +127,8 @@ EE4_sd <- round(EE4_sd, 2)
 
 #Creating a data frame for Performance Expectancy data
 EE_data <- data.frame(
-  Code = c("EE1", "EE2", "EE3", "EE4"),
+  Questions = c("Do you find Digital payment method easy to use and understand?", "Do you find digital payment platforms user-friendly and efficient for making transactions?", "Do you find the process of digital payment platforms with other financial tools and services beneficial?", "Do you find digital payment method convenient to use?"),
+  Description = c("Effort Expectancy", "Effort Expectancy", "Effort Expectancy", "Effort Expectancy"),
   Mean = c(EE1_mean, EE2_mean, EE3_mean, EE4_mean),
   SD = c(EE1_sd, EE2_sd, EE3_sd, EE4_sd)
 )
@@ -115,9 +136,11 @@ EE_data <- data.frame(
 # Save the data frame of Effort Expectancy as a CSV file
 write.csv(EE_data, "EE.csv", row.names = FALSE)
 
+#Displaying data frame using kable function
+kable(EE_data, caption = "Effort Expectancy")
+```
 
-
-
+```{r}
 #Factoring the elements of every column in Social Influence and change it in numeric value
 #Getting the mean and standard deviation
 SI1 <- data$Do.you.generally.embrace.new.technologies..including.digital.payment.methods.
@@ -151,7 +174,8 @@ SI3_sd <- round(SI3_sd, 2)
 
 #Creating a data frame for Social Influence data
 SI_data <- data.frame(
-  Code = c("SI1", "SI2", "SI3"),
+  Questions = c("Do your friends or family members encourage you to use digital payment methods?", "Are you influenced by the behavior of others when it comes to adopting digital payment technologies?", "Do you feel pressure from social circles to use digital payment platforms?"),
+  Description = c("Social Influence", "Social Influence", "Social Influence"),
   Mean = c(SI1_mean, SI2_mean, SI3_mean),
   SD = c(SI1_sd, SI2_sd, SI3_sd)
 )
@@ -159,7 +183,13 @@ SI_data <- data.frame(
 # Save the data frame of Social Influence as a CSV file
 write.csv(SI_data, "SI.csv", row.names = FALSE)
 
+#Displaying data frame using kable function
+kable(SI_data, caption = "Social Influence")
+```
 
+```{r}
+#Factoring the elements of every column in Facilitating Condition and change it in numeric value
+#Getting the mean and standard deviation
 FC1 <- data$How.easy.is.it.for.you.to.access.digital.payment.platforms.like.GCash..PayMaya..PayPal..etc..
 FC1_fr <- factor(data$How.easy.is.it.for.you.to.access.digital.payment.platforms.like.GCash..PayMaya..PayPal..etc., levels = c("Very hard", "Hard", "Medium", "Easy", "Very easy")) 
 FC1_recode <- recode(FC1_fr, "Very easy" = 1, "Easy" = 2, "Medium" = 3, "Hard" = 4, "Very hard" = 5)
@@ -190,7 +220,8 @@ FC3_sd <- round(FC3_sd, 2)
 
 #Creating a data frame for Facilitating Condition data
 FC_data <- data.frame(
-  Code = c("FC1", "FC2", "FC3"),
+  Questions = c("How easy is it for you to access digital payment platforms like GCash, PayMaya, PayPal, etc.?", "Have you faced any problems using digital payment platforms?", "What features would you like digital payment platforms to have to make them easier to use?"),
+  Description = c("Facilitating Condition", "Facilitating Condition", "Facilitating Condition"),
   Mean = c(FC1_mean, FC2_mean, FC3_mean),
   SD = c(FC1_sd, FC2_sd, FC3_sd)
 )
@@ -198,12 +229,16 @@ FC_data <- data.frame(
 # Save the data frame of Facilitating Condition as a CSV file
 write.csv(FC_data, "FC.csv", row.names = FALSE)
 
+#Displaying data frame using kable function
+kable(FC_data, caption = "Facilitating Condition")
+```
 
-#Reading CSV Files
-PE <- read_csv("/cloud/project/Survey/UTAUT/CSV Files/PE.csv")
-EE <- read_csv("/cloud/project/Survey/UTAUT/CSV Files/EE.csv")
-SI <- read_csv("/cloud/project/Survey/UTAUT/CSV Files/SI.csv")
-FC <- read_csv("/cloud/project/Survey/UTAUT/CSV Files/FC.csv")
+```{r}
+#Reading each CSV Files
+PE <- read.csv("/cloud/project/Survey/UTAUT/CSV Files/PE.csv")
+EE <- read.csv("/cloud/project/Survey/UTAUT/CSV Files/EE.csv")
+SI <- read.csv("/cloud/project/Survey/UTAUT/CSV Files/SI.csv")
+FC <- read.csv("/cloud/project/Survey/UTAUT/CSV Files/FC.csv")
 
 
 # Combine all data frames into one
@@ -212,28 +247,11 @@ merged_data <- bind_rows(PE,SI,FC,EE)
 # Save the combined data frame as a CSV file
 write.csv(merged_data, "MergedData.csv", row.names = FALSE)
 
-# Calculate the average mean and standard deviation rounded to 2 decimal places
-read_merged_data <- read_csv("/cloud/project/Survey/UTAUT/CSV Files/MergedData.csv")
-average_mean <- round(mean(read_merged_data$Mean), 2)
-average_sd <- round(mean(read_merged_data$SD), 2)
+#Displaying data frame using kable function
+kable(merged_data, caption = "")
+```
 
-# Create a new row for the total average
-average_row <- c("Total Average", average_mean, average_sd)
-
-# Add the new row to the data frame
-total_average <- rbind(read_merged_data, average_row)
-
-# Print the updated data frame
-total_average
-
-# Save the new data frame with Total Average as a CSV file
-write.csv(total_average, "Merged Data with Total Average.csv", row.names = FALSE)
-
-
-
-
-#BEHAVIORAL INTENTION
-
+```{r}
 #Data frame for Performance Expectancy summary
 PE_merged_mean <- mean(c(PE1_mean,PE2_mean, PE3_mean, PE4_mean), na.rm = TRUE)
 
@@ -248,8 +266,11 @@ PE_summary<- data.frame(
 # Save PE merged summary data frame as a CSV file
 write.csv(PE_summary, "PE_Summary.csv", row.names = FALSE)
 
+#Displaying data frame using kable function
+kable(PE_summary, caption = "Performance Expectancy Average")
+```
 
-
+```{r}
 #Data frame for Facilitating Condition summary
 FC_merged_mean <- mean(c(FC1_mean, FC2_mean, FC3_mean), na.rm = TRUE)
 FC_merged_sd <- sqrt(mean(c(FC1_sd^2, FC2_sd^2, FC3_sd^2), na.rm = TRUE))
@@ -263,8 +284,11 @@ FC_summary<-data.frame(
 # Save FC merged summary data frame as a CSV file
 write.csv(FC_summary, "FC_Summary.csv", row.names = FALSE)
 
+#Displaying data frame using kable function
+kable(FC_summary, caption = "Facilitating Condition Average")
+```
 
-
+```{r}
 #Data frame for Effort Expectancy summary
 EE_merged_mean <- mean(c(EE1_mean, EE2_mean, EE3_mean, EE4_mean), na.rm = TRUE)
 EE_merged_sd <- sqrt(mean(c(EE1_sd^2, EE2_sd^2, EE3_sd^2, EE3_sd^2), na.rm = TRUE))
@@ -278,7 +302,11 @@ EE_summary<-data.frame(
 # Save EE merged summary data frame as a CSV file
 write.csv(EE_summary, "EE_Summary.csv", row.names = FALSE)
 
+#Displaying data frame using kable function
+kable(EE_summary, caption = "Effort Expectancy Average")
+```
 
+```{r}
 #Data frame for Social Influence summary
 SI_merged_mean <- mean(c(SI1_mean, SI2_mean, SI3_mean), na.rm = TRUE)
 SI_merged_sd <- sqrt(mean(c(SI1_sd^2, SI2_sd^2, SI3_sd^2), na.rm = TRUE))
@@ -291,10 +319,30 @@ SI_summary<-data.frame(
 # Save SI merged summary data frame as a CSV file
 write.csv(SI_summary, "SI_Summary.csv", row.names = FALSE)
 
+#Displaying data frame using kable function
+kable(SI_summary, caption = "Social Influence Average")
+```
+
+```{r}
+#Adding average mean and sd column
+read_merged_data <- read.csv("/cloud/project/Survey/UTAUT/CSV Files/MergedData.csv")
+read_merged_data <- read_merged_data %>%
+  mutate(Average_Mean = c(PE_merged_mean, PE_merged_mean, PE_merged_mean, PE_merged_mean, EE_merged_mean, EE_merged_mean, EE_merged_mean, EE_merged_mean, SI_merged_mean, SI_merged_mean, SI_merged_mean, FC_merged_mean, FC_merged_mean, FC_merged_mean),
+        Average_Sd = c(PE_merged_sd, PE_merged_sd, PE_merged_sd, PE_merged_sd, EE_merged_sd, EE_merged_sd, EE_merged_sd, EE_merged_sd, SI_merged_sd, SI_merged_sd, SI_merged_sd, FC_merged_sd, FC_merged_sd, FC_merged_sd))
+
+#Creating a data frame
+write.csv(read_merged_data, "Final_Merged.csv", row.names = FALSE)
+
+#Displaying Data frame using kable function
+kable(read_merged_data, caption = "Understanding the Role of Digital Wallets")
+```
+
+```{r}
+#BEHAVIORAL INTENTION
 #Merged summaries
-PE2<-read_csv("/cloud/project/Survey/UTAUT/CSV Files/PE_Summary.csv")
-EE2<-read_csv("/cloud/project/Survey/UTAUT/CSV Files/EE_Summary.csv")
-SI2<-read_csv("/cloud/project/Survey/UTAUT/CSV Files/SI_Summary.csv")
+PE2<-read.csv("/cloud/project/Survey/UTAUT/CSV Files/PE_Summary.csv")
+EE2<-read.csv("/cloud/project/Survey/UTAUT/CSV Files/EE_Summary.csv")
+SI2<-read.csv("/cloud/project/Survey/UTAUT/CSV Files/SI_Summary.csv")
 
 # Combine all summaries into a single data frame
 merged_summary<- rbind(PE2, EE2, SI2)
@@ -302,13 +350,21 @@ merged_summary<- rbind(PE2, EE2, SI2)
 # Save the merged summary data frame as a CSV file
 write.csv(merged_summary, "Behavioral Intention.csv", row.names = FALSE)
 
+#Displaying data frame using kable function
+kable(merged_summary, caption = "")
+```
+
+```{r}
 #USER BEHAVIOR
-FC2<-read_csv("/cloud/project/Survey/UTAUT/CSV Files/FC_Summary.csv")
-BI<-read_csv("/cloud/project/Survey/UTAUT/CSV Files/Behavioral Intention.csv")
+FC2<-read.csv("/cloud/project/Survey/UTAUT/CSV Files/FC_Summary.csv")
+BI<-read.csv("/cloud/project/Survey/UTAUT/CSV Files/Behavioral Intention.csv")
 
 # Combine all summaries into a single data frame
 merged_summary2<- rbind(FC2, BI)
 
 # Save the merged summary data frame as a CSV file
-write.csv(merged_summary2, "User Behaviour.csv", row.names = FALSE)
-
+write.csv(merged_summary2, "User Behavior.csv", row.names = FALSE)
+  
+#Displaying data frame using kable function
+kable(merged_summary2, caption = "")
+```

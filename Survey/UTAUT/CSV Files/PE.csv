@@ -1,5 +1,5 @@
-"Code","Mean","SD"
-"PE1",1,0
-"PE2",1.75,0.92
-"PE3",1.19,0.57
-"PE4",1.33,0.67
+"Questions","Description","Mean","SD"
+"Do you find using Digital payment useful?","Performance Expectance",1,0
+"Do you think using Digital payment method will help you manage your money better?","Performance Expectance",1.75,0.92
+"Do you believe that Digital payment method will make your financial transaction easier?","Performance Expectance",1.19,0.57
+"Do you think Digital payment method will make it easier for you to keep track of your spending?","Perforamce Expectancy",1.33,0.67
